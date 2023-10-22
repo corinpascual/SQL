@@ -1,1 +1,53 @@
+CREATE TABLE fortune_companies (
+    company_id INTEGER PRIMARY KEY,
+    company_name TEXT,
+    industry TEXT,
+    revenue REAL,
+    employees INTEGER,
+    healthcare_benefits BIT,
+    paid_time_off_days INTEGER,
+    maternity_leave_weeks INTEGER,
+    avg_employee_tenure REAL
+);
 
+
+
+SELECT company_name,
+CASE 
+  WHEN paid_time_off_days>= 25 THEN 'Exceptional PTO'
+  WHEN paid_time_off_days>= 15 THEN 'Moderate PTO'
+  WHEN paid_time_off_days>= 10 THEN 'Below Moderate PTO'
+  ELSE 'Poor PTO'
+END as PTO_friendliness
+FROM fortune_companies
+ORDER BY paid_time_off_days asc;
+
+
+
+SELECT company_name
+FROM fortune_companies
+WHERE avg_employee_tenure>= 5 
+AND healthcare_benefits=1
+;
+
+
+
+SELECT company_name
+FROM fortune_companies
+WHERE industry= 'Technology'
+AND revenue>= 400
+;
+
+
+
+SELECT company_name, AVG(revenue)
+FROM fortune_companies
+WHERE industry= 'Retail'
+;
+
+
+
+SELECT company_name, MIN(revenue)
+FROM fortune_companies
+WHERE industry= 'Technology'
+;
